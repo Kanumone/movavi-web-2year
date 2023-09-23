@@ -2,8 +2,8 @@
 
 ## Общие
 
-1. https://learn.javascript.ru/ - документация по javascript на русском языке.
-2.
+1. https://learn.javascript.ru/ - документация по JavaScript.
+2. https://developer.mozilla.org/ru/docs/Web/JavaScript - мультиязычная документация по JavaScript и не только.
 
 ## Изучение JS в интересной форме
 
