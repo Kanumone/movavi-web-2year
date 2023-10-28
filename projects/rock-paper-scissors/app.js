@@ -3,56 +3,73 @@ const paper = 'paper';
 const scissors = 'scissors';
 const scoreTable = document.querySelector('.score');
 const gameResult = document.getElementById('result');
-const gameElements = [rock, paper, scissors];
-let score = 0;
+const restart = document.getElementById('restart');
+
 const maxRounds = 10;
 
-const pw = 0;
-const cw = 1;
+const playerWin = 0;
+const computerWin = 1;
 const tie = 2;
 
 let computerScore = 0;
 let playerScore = 0;
+let isGameOver = false;
+
+function restartGame() {
+    computerScore = playerScore = 0;
+    isGameOver = false;
+}
+
+restart.addEventListener('click', function () {
+    restartGame();
+    scoreTable.textContent = `Computer Score: ${computerScore} - Player Score: ${playerScore}`;
+    gameResult.textContent = 'Game result:';
+})
 
 const gameItems = document.querySelectorAll('.gameItem');
-gameItems.forEach(item => {
+for (let i = 0; i < gameItems.length; i++) {
+    const item = gameItems[i];
     item.addEventListener('click', function () {
-        const winner = playRound(item.alt, computerPlay());
-        if (winner === pw) {
-            playerScore++;
-        } else if (winner === cw) {
-            computerScore++;
+        if (isGameOver) {
+            return;
         }
-        scoreTable.textContent = `Computer Score: ${computerScore} - Player Score: ${playerScore}`;
-        score++;
-        if (score === maxRounds) {
-            if (computerScore > playerScore) {
-                gameResult.textContent = 'Game result: Computer WON'
-            } else if (computerScore < playerScore) {
-                gameResult.textContent = 'Game result: Player WON'
-            } else {
-                gameResult.textContent = 'Game result: TIE'
-            }
-        }
+        const playerChoose = item.alt;
+        const computerChoose = computerPlay();
+        playRound(playerChoose, computerChoose);
     });
-});  
+}
+
 
 function playRound(player, computer) {
     if (player === computer) {
+        gameResult.textContent = 'Game result: TIE';
         return tie;
     }
+    const isPlayerWin = (player === rock && computer !== paper) ||
+                      (player === scissors && computer !== rock) ||
+                      (player === paper && computer !== scissors);
 
-    if ((player === rock && computer !== paper) ||
-        (player === scissors && computer !== rock) ||
-        (player === paper && computer !== scissors)
-        ) {
-            return pw;
+    if (isPlayerWin) {
+        gameResult.textContent = 'Game result: Player WON';
+        playerScore++;
     } else {
-        return cw;
+        gameResult.textContent = 'Game result: Computer WON';
+        computerScore++;
+    }
+    scoreTable.textContent = `Computer Score: ${computerScore} - Player Score: ${playerScore}`;
+    if (playerScore === maxRounds || computerScore === maxRounds) {
+        isGameOver = true;
+        scoreTable.textContent = `Game over: ${scoreTable.textContent}`;
+        if (playerScore > computerScore) {
+            gameResult.textContent = 'Game result: Player WON';
+        } else {
+            gameResult.textContent = 'Game result: Computer WON';
+        }
     }
 }
 
 function computerPlay() {
-    const i = Math.round(Math.random() * 2);
+    const gameElements = [rock, paper, scissors];
+    const i = Math.floor(Math.random() * gameElements.length);
     return gameElements[i];
 }

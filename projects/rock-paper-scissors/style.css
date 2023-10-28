@@ -98,6 +98,10 @@ a {
   padding: 5px;
 }
 
+#result {
+  font-size: 18px;
+}
+
 .footer {
   background-color: #1F2937;
   width: 100vw;
