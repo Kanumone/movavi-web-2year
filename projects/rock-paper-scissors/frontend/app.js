@@ -5,7 +5,7 @@ const scoreTable = document.querySelector('.score');
 const gameResult = document.getElementById('result');
 const restart = document.getElementById('restart');
 
-const maxRounds = 10;
+let maxRounds = 3;
 
 const playerWin = 0;
 const computerWin = 1;
@@ -39,7 +39,6 @@ for (let i = 0; i < gameItems.length; i++) {
     });
 }
 
-
 function playRound(player, computer) {
     if (player === computer) {
         gameResult.textContent = 'Game result: TIE';
@@ -57,7 +56,11 @@ function playRound(player, computer) {
         computerScore++;
     }
     scoreTable.textContent = `Computer Score: ${computerScore} - Player Score: ${playerScore}`;
-    if (playerScore === maxRounds || computerScore === maxRounds) {
+    console.log(maxRounds, "max")
+    console.log(computerScore, "cs")
+    console.log(playerScore, "ps")
+
+    if (playerScore >= maxRounds || computerScore >= maxRounds) {
         isGameOver = true;
         scoreTable.textContent = `Game over: ${scoreTable.textContent}`;
         if (playerScore > computerScore) {
@@ -73,3 +76,10 @@ function computerPlay() {
     const i = Math.floor(Math.random() * gameElements.length);
     return gameElements[i];
 }
+
+const maxScoreBtn = document.getElementById('apply-max');
+const maxScore = document.getElementById('max-games')
+maxScoreBtn.addEventListener('click', () => {
+    restartGame();
+    maxRounds = maxScore.value;
+})
