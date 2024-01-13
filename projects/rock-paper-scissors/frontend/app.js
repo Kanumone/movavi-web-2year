@@ -56,9 +56,6 @@ function playRound(player, computer) {
         computerScore++;
     }
     scoreTable.textContent = `Computer Score: ${computerScore} - Player Score: ${playerScore}`;
-    console.log(maxRounds, "max")
-    console.log(computerScore, "cs")
-    console.log(playerScore, "ps")
 
     if (playerScore >= maxRounds || computerScore >= maxRounds) {
         isGameOver = true;
