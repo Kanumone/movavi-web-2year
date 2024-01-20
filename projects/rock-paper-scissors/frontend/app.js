@@ -68,6 +68,19 @@ function playRound(player, computer) {
     }
 }
 
+function sendStat(user) {
+    fetch('/stat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            win: playerScore,
+            lose: computerScore
+        })
+    })
+}
+
 function computerPlay() {
     const gameElements = [rock, paper, scissors];
     const i = Math.floor(Math.random() * gameElements.length);
