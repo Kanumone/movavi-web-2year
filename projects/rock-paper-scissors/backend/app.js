@@ -12,6 +12,7 @@ nunjucks.configure(views, {
     autoescape: true
 });
 
+app.use(express.json());
 app.use(router);
 app.use(express.static(frontend));
 

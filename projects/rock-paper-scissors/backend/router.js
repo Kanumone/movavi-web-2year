@@ -24,4 +24,11 @@ router.get('/signin', function (req, res) {
     });
 });
 
+router.post('/stat', function(req, res) {
+    const params = req.body;
+    const user = new User(params.username);
+    user.setStat(params.win, params.lose);
+    stat.addUserStat(user);
+});
+
 module.exports = router;

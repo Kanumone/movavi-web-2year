@@ -12,6 +12,9 @@
       <span>Счет по партиям: </span>
       <div>{{ user.name }}: <span id="p-final">{{ user.win }}</span></div>
       <div>Computer: <span id="c-final">{{ user.lose }}</span></div>
+      {% if not signin %}
+        <button id="sendStatButton">Зафиксировать статистику</button>
+      {% endif%}
     </div>
   </div>
   <div class="center">
