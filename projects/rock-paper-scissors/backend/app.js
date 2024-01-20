@@ -1,21 +1,16 @@
 const express = require('express');
-const handlebars = require('express-handlebars');
 const path = require('node:path');
 const port = 5000;
 const frontend = path.resolve(__dirname, '../frontend');
+const views = path.resolve(__dirname, 'views');
 const router = require('./router.js');
+const nunjucks = require('nunjucks');
 
 const app = express();
-
-app.engine(
-    '.hbs',
-    handlebars.engine({
-        extname: '.hbs',
-        defaultLayout: 'main',
-    })
-);
-app.set('views', `${__dirname}/views`);
-app.set('view engine', '.hbs');
+nunjucks.configure(views, {
+    express: app,
+    autoescape: true
+});
 
 app.use(router);
 app.use(express.static(frontend));

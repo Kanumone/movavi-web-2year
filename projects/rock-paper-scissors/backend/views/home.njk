@@ -1,4 +1,6 @@
-<div class="header">ROCK PAPPER SCISSORS</div>
+{% extends 'layouts/main.njk' %}
+
+{% block body %}
 <div class="game">
   <div class="left">
     <div class="input-block">
@@ -8,8 +10,8 @@
     </div>
     <div class="all-score">
       <span>Счет по партиям: </span>
-      <div>{{{user.name}}}: <span id="p-final">{{{user.win}}}</span></div>
-      <div>Computer: <span id="c-final">{{{user.lose}}}</span></div>
+      <div>{{ user.name }}: <span id="p-final">{{ user.win }}</span></div>
+      <div>Computer: <span id="c-final">{{ user.lose }}</span></div>
     </div>
   </div>
   <div class="center">
@@ -31,7 +33,7 @@
     </div>
   </div>
   <div class="right">
-    {{#if signin}}
+    {% if signin %}
       <div class="input-block">
         <form action="/signin">
           <div>Введите имя игрока</div>
@@ -39,21 +41,17 @@
           <button id="apply-max">Войти</button>
         </form>
       </div>
-    {{else}}
+    {% else %}
       <a href="/"><button>Выйти</button></a>
-    {{/if}}
+    {% endif %}
     <div class="stats">
       <div>Общая статистика</div>
       <ol>
-        {{#each allStat}}
-          <li>{{this.name}} {{this.win}}-{{this.lose}}</li>
-        {{/each}}
+        {% for user in allStat %}
+          <li>{{user.name}} {{user.win}}-{{user.lose}}</li>
+        {% endfor %}
       </ol>
     </div>
   </div>
 </div>
-
-<div class="footer">
-  <a href="https://www.flaticon.com/authors/freepik"
-    title="scissors icons">Icons created by Freepik - Flaticon</a>
-</div>
+{% endblock %}
