@@ -14,6 +14,9 @@ const tie = 2;
 let computerScore = 0;
 let playerScore = 0;
 let isGameOver = false;
+const pFinal = document.getElementById('p-final');
+const cFinal = document.getElementById('c-final');
+const statButton = document.getElementById('sendStatButton');
 
 function restartGame() {
     computerScore = playerScore = 0;
@@ -62,24 +65,35 @@ function playRound(player, computer) {
         scoreTable.textContent = `Game over: ${scoreTable.textContent}`;
         if (playerScore > computerScore) {
             gameResult.textContent = 'Game result: Player WON';
+            pFinal.textContent = Number(pFinal.textContent) + 1;
         } else {
             gameResult.textContent = 'Game result: Computer WON';
+            cFinal.textContent = Number(cFinal.textContent) + 1;
         }
     }
 }
 
-function sendStat(user) {
+function sendStat(win, lose) {
+    const searchParams = new URLSearchParams(window.location.search);
+    const username = searchParams.get('username');
+    const stat = {
+        username,
+        win: Number(win),
+        lose: Number(lose)
+    };
     fetch('/stat', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            win: playerScore,
-            lose: computerScore
-        })
-    })
+        body: JSON.stringify(stat)
+    });
+    location.reload();
 }
+
+statButton.addEventListener('click', function() {
+    sendStat(pFinal.textContent, cFinal.textContent);
+});
 
 function computerPlay() {
     const gameElements = [rock, paper, scissors];
