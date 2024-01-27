@@ -1,0 +1,10 @@
+{% extends 'layouts/main.njk' %}
+
+{% block body %}
+    <h3>Home page</h3>
+    {% for post in posts %}
+        1
+        <div>{{ post.title }}</div>
+        <div>{{ post.content }}</div>
+    {% endfor %}
+{% endblock %}
