@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('node:path');
-const port = 5000;
+const port = 80;
 const frontend = path.resolve(__dirname, '../frontend');
 const views = path.resolve(__dirname, 'views');
 const router = require('./router.js');

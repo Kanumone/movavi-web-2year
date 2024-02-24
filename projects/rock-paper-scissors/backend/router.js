@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { stat } = require('./scirpts/statistic');
-const { User } = require('./scirpts/user');
+const { stat } = require('./classes/statistic');
+const { User } = require('./classes/user');
 
 router.get('/', (req, res) => {
     const user = new User('User');
