@@ -1,5 +1,7 @@
-import Express from "express"
-import {User} from "./user.js";
+import Express from "express";
+import { Router } from "express";
+import {User} from "./models/user.js";
+import cors from 'cors';
 
 const app = Express();
 
@@ -7,13 +9,17 @@ const users = [];
 let index = 0;
 
 app.use(Express.json());
+app.use(cors());
+app.use(Express.static('../frontend'));
 
-app.get("/get_users", (req, res) => {
+app.get("/get_users", (_, res) => {
     res.send(JSON.stringify(users));
 });
 
 app.post("/create_user", (req, res) => {
-    const newUser = new User(index, req.body.name, req.body.age);
+    const username = req.body.name;
+    const age = req.body.age;
+    const newUser = new User(index, username, age);
     index++;
     users.push(newUser);
     res.send(newUser.name + " created");

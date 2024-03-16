@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+#users {
+    padding: 20px;
+}
+
+.user {
+    display: flex;
+    gap: 10px;
+}
+
